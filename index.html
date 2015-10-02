@@ -15,17 +15,53 @@
     // $( ".status" ).html( data );
     //   alert( "Load was performed." );
     // });
-    var url = "http://205.200.66.50:8000";
-    var success = function(data) {
-      document.write(data);
-    };
 
-    $.ajax({
-      url: url,
-      success: success,
-      dataType: 'jsonp'
+    var urls = [{ name: 'leos', url: "http://205.200.66.50"}, {name: 'kirchner', url: "http://64.141.35.142"}];
+    var numBases = 2;
+    var numRequests = 0;
+
+    urls.forEach(function(url, index) {
+      //console.log(url.url)
+    
+      $.ajax({
+        url: urls[index]['url'],
+        //success: success,
+        dataType: 'jsonp',
+        username: 'status',
+        password: 'password',
+        authentication: 'basic',
+        // success: function(data, textStatus, xhr) {
+        //   console.log(xhr.status);
+        // },
+        complete: function(xhr) {
+          console.log(xhr.status);
+          (xhr.status == 200 || xhr.status == 401) ? urls[index].status = "online" : urls[index].status = "offline";
+          numRequests += 1;
+          document.write(urls[index].name + ": " + urls[index].status)
+
+          // (numRequests == numBases) ? document.write(urls[index].status, urls[index].url): console.log("not yet");
+        },
+        statusCode: {
+          200: function() {
+            console.log("Online");
+          }
+        }
+      });
+
+
     });
+
+    //document.write(urls[0].url)
   </script>
 
 </body>
 </html>
+
+
+
+
+
+
+
+
+
