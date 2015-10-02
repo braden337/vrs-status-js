@@ -26,10 +26,10 @@
       $.ajax({
         url: urls[index]['url'],
         //success: success,
-        dataType: 'jsonp',
-        username: 'status',
-        password: 'password',
-        authentication: 'basic',
+        //dataType: 'jsonp',
+        beforeSend: function(xhr) {
+          xhr.setRequestHeader("WWW-Authenticate", "none");
+        },
         // success: function(data, textStatus, xhr) {
         //   console.log(xhr.status);
         // },
