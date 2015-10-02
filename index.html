@@ -11,9 +11,19 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
   <script>
-    $.get( "http://205.200.66.50:8000", function( data ) {
-    $( ".status" ).html( data );
-      alert( "Load was performed." );
+    // $.get( "http://205.200.66.50:8000", function( data ) {
+    // $( ".status" ).html( data );
+    //   alert( "Load was performed." );
+    // });
+    var url = "http://205.200.66.50:8000";
+    var success = function(data) {
+      document.write(data);
+    };
+
+    $.ajax({
+      url: url,
+      success: success,
+      dataType: 'jsonp'
     });
   </script>
 
